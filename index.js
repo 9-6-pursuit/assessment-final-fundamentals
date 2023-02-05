@@ -37,7 +37,7 @@ function getAllMovieTitles(movies) {
   for (const eachMovie of movies) {
     newMovieArray.push(eachMovie.title);
   }
-  return newMovieArray;
+  //return newMovieArray;
 }
 
 /**
@@ -57,7 +57,7 @@ function getHighestMetascore(movies) {
   } 
 
   let highestMetaScore = '0';
-  for (const eachMovie of movies) {
+  for (const eachMovie of movies) { 
     let metascore = eachMovie.metascore
     if(highestMetaScore < metascore) {
       highestMetaScore = Number(metascore);
@@ -89,8 +89,10 @@ function getAverageIMDBRating(movies) {
   }
   for (const eachScore of allMovieRatings) {
     imdbRateAvg += eachScore;
-    imdbRateAvg = imdbRating / allMovieRatings.length;
   }
+  imdbRateAvg = imdbRateAvg / allMovieRatings.length;
+  imdbRateAvg = Math.round(imdbRateAvg,0);
+
   return imdbRateAvg;
 }
 
@@ -144,7 +146,6 @@ function findById(movies,id) {
     const eachMovie = movies[i] 
     if(eachMovie.imdbID === id) {
       result = eachMovie;
-      console.log('eachMovie===> ', eachMovie.title)
       return result
     }
   }
@@ -183,7 +184,10 @@ function filterByGenre(movies,genre) {
       movieList.push(movie)
     }
   }
-
+  if(!movieList.length){
+    return [];
+  }
+return movieList
 }
 
 /**
