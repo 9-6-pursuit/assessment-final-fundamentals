@@ -137,20 +137,18 @@ function countByRating(movies) {
     // ****  N O T   Y E T   W O R K I N G  ****
 function findById(movies,id) {
   if(movies.length === 0){
-  return null;
+    return null;
   }
   let result = {}
   for (let i = 0; i < movies.length; i++) {
     const eachMovie = movies[i] 
     if(eachMovie.imdbID === id) {
       result = eachMovie;
-      console.log('eachMovie===> ', eachMovie)
-      
+      console.log('eachMovie===> ', eachMovie.title)
+      return result
     }
   }
-  if(result.length) {
-    return result
-  } else {
+  if(!result.length) {
     return null
   }
 }
@@ -175,8 +173,17 @@ function findById(movies,id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {
-  
+function filterByGenre(movies,genre) {
+  if(movies.length === 0){
+    return [];
+  }
+  const movieList = []
+  for (const movie of movies) {
+    if(movie.genre.includes(genre)){
+      movieList.push(movie)
+    }
+  }
+
 }
 
 /**
