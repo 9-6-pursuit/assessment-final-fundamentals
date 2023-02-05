@@ -28,7 +28,16 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies, x) {
+let array = []
+if (movies.length !== 0){
+  return []
+}
+for (const movie of movies) {
+  array.push["movie.titles"]
+}
+return array
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +50,20 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies){
+let highestMetaScore = {metaScore:96}
+let arrayOfMovies;
+if (movies.length === 0){
+  return 0
+}
+for (const movie of movies){
+  if (movie.metaScore < highestMetaScore.metaScore ){
+    highestMetaScore = movie
+}
+}
+ return highestMetaScore.movies
+}
+
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +76,14 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(moviesArray) {
+    if(moviesArray.length === 0) {
+       return 0;
+    } 
+   let averageScore = totalScore/moviesArray.length;
+    let roundedAverageScore = averageScore.toFixed(2)
+        return roundedAverageScore
+}
 
 /**
  * countByRating()
@@ -67,7 +96,17 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRatings(movieRatings) {
+  let countingObj = {}
+  for (const movie of movies){
+   if(countingObj[movie.ratings]){
+   countingObj[movie.ratings] += 1
+   } else {
+     countingObj[movie.ratings] = 1
+    }
+   }
+    return movie;
+}
 
 /**
  * findById()
@@ -82,9 +121,18 @@ function countByRating() {}
  *  //> {
       // Toy Story 4
     };
- */
-function findById() {}
-
+ */ 
+function findById(movies, id) { 
+    let movie === moviesImdbId{
+     return null
+     for(const movie of movies{
+      if(movie.moviesImdbId.includes(Id)){
+        moviesImdbId = movies.id
+      }
+} 
+      return moviesImdbId
+}
+}
 /**
  * filterByGenre()
  * -----------------------------
@@ -105,7 +153,16 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre() {
+  let macthingGenra= []
+  for (const movie of movies){
+    if(movie.movies.toUpperCase() === movies.toUpperCase()){
+      filteredByGenre.push(movie)
+    }
+  }
+  return filtereByGrenra
+}
+
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,9 +186,17 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let moviesReleased = []
+  for(const movie  of movies){
+    if(movie.yearReleased >= year){
+      moviesReleased.push(movie)
+    }
+  }
+  return movieReleased
+}
 
-/**
+ /*
  * getBiggestBoxOfficeMovie()
  * -----------------------------
  * Returns the name of the movie with the highest `boxOffice` amount.
@@ -142,7 +207,26 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies){
+    let boxOfficeMoivies = {moneyMaid:infinity}
+    if(boxoffice.length === 0){
+      return null
+    }
+    for(const movie of movies){
+      let movieName <== moviesBoxOffice
+      
+      }
+    }
+    return oldestCity.name
+  }
+  
+}
+) 
+
+
+
+
+
 
 // Do not change anything below this line.
 module.exports = {
