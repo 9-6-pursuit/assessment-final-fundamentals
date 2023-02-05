@@ -127,11 +127,11 @@ function countByRating(movies) {
     };
  */
 function findById(movies, id) {
-  if (movies.length === 0){
+  if (movies.length === undefined){
     return null
   }
   
-  let result = {}
+  let result = null
 
   for (movie of movies){
    
