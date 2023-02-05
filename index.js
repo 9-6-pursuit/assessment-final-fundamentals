@@ -28,7 +28,15 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  let movieTitleList = []
+  for (let index = 0; index < movies.length; index++) {
+    const movie = movies[index];
+    let movieTitle = movie.title
+    movieTitleList.push(movieTitle)
+  }
+return movieTitleList;
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +49,21 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  let highestScore = 0;
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+
+    if (movies.length === 0) {
+      return highestScore;
+    }
+    if (Number(movie.metascore) > Number(highestScore)){
+       highestScore = movie.metascore;
+    }
+  }
+  return Number(highestScore);
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +76,18 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let imdbAverage = 0;
+
+  if (movies.length === 0) {
+    return imdbAverage;
+  }
+  for (let m = 0; m  < movies.length; m ++) {
+    const movie = movies[m];
+    imdbAverage += Number(movie.imdbRating)
+  }
+  return imdbAverage/movies.length;
+}
 
 /**
  * countByRating()
@@ -67,7 +100,33 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  let ratingObj = {};
+
+  if (movies.length === 0) {
+    return ratingObj;
+  }
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let rating = movie.rated;
+
+ /* this code was flipping me out! refer to slack for original code;
+this code is much clearer and works. Here I am saying if my object (ratingObj) has the property I am going to add 1 to it's value, which is initially 0 for all property values because ratingObj is an empty object I created. for the if state, it is saying "if property has __(rating)___ property add 1 to the value; if not add property key and value; then set value =1; 
+
+Tada!!
+
+my original code used the variable "count" which was returning an inaccurate value because it was one variable that was being used for all properties within the new object. Thus, instead of each property having its own unique count variable, the count variable was holding over (or keeping) the previous value and adding it to the next item in the array and putting that value into the object, which was erroneous. 
+*/
+
+    if(ratingObj.hasOwnProperty(rating)){
+      ratingObj[rating] += 1;
+    } else {
+      ratingObj[rating] = 1;
+    }
+  }
+  return ratingObj;
+}
 
 /**
  * findById()
@@ -83,7 +142,18 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length === 0){
+    return null;
+  }
+  for (let i = 0; i < movies.length; i++) {
+    const movie = movies[i];
+    if(movie.imdbID === id) {
+      return movie;
+    }
+  }
+  return null;
+}
 
 /**
  * filterByGenre()
@@ -105,7 +175,20 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  let movieArr = [];
+
+  if (movies.length === 0){
+    return movieArr;
+  }
+for (let m = 0; m < movies.length; m++) {
+  const movie = movies[m];
+  if (movie.genre.toLowerCase().includes(genre.toLowerCase())){
+    movieArr.push(movie)
+  }
+}
+return movieArr;
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +212,41 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let movieArr = [];
+  
+  let reg = /\d+/g;
+
+  /* to return numbers within a string I used \d+ ;
+  d stands for "digits" and the "+" tells the system we are looking numbers with at least 1 digit. the /g is a standard ECMA 6 code modifier for global, which - in this case - means all numbers (decimals, intergers, etc)
+  */
+
+  if (movies.length === 0){
+    return movieArr;
+  }
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let num = movie.released.match(reg)
+
+/* match is cool, it's similar to includes but less strict. I used a regEx with match. a regEx is a sequence of characters that forms a search pattern. I used the regEx for digits (global) and set it equal to a variable called "reg." I then searched for characters that align with the reg pattern using the match methood which returned all numbers (num) as an array. 
+- match returns as an array
+*/
+
+
+
+
+    for (let r = 0; r < num.length; r++) {
+      const releasedYear = num[r];
+      if (releasedYear.length === 4) {
+        if (releasedYear <= year) {
+          movieArr.push(movie);
+        }
+      }
+    }
+  }
+  return movieArr;
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +259,35 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  let string = ''
+  let highestBoxOffice = 0
+
+  if (movies.length === 0){
+    return null;
+  }
+
+  for (let m= 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let bigHit = Number(movie.boxOffice.slice(1).split(",").join(""))
+    if(bigHit > highestBoxOffice) {
+      highestBoxOffice = bigHit
+      string = movie.title;
+    }
+  }
+  return string;
+}
+
+  /*I used slice method at index 1 to return the # part without dollar sign then split at the commas then used join to return one whole number. I tried to used regEx for this one, but too much work. it would take way more steps because with setting a regEx value then using match... 
+
+learning takeaways:
+-slice is a string method that returns an inclusive starting point to the end when a second parameter is not added
+-split turns our string into an array with the elements seperated at the position it is split at (in this case the commas in the number string)
+- join is an ARRAY method that joins all array elements into a string it is similar to the toString() method except the toString() method joins the array elements seperated by commas and we can set the seperator using the .join method ('') 
+  */
+
+
+   
 
 // Do not change anything below this line.
 module.exports = {
