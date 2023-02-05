@@ -28,7 +28,11 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+
+
+function getAllMovieTitles(movies) {
+  return movies.map(movie => movie.title) || [];
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +45,11 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+
+
+function getHighestMetascore(movies) {
+  return movies.reduce((max, movie) => Math.max(max, movie.metascore), 0) || 0;
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +62,18 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+
+
+function getAverageIMDBRating(movies) {
+  if (!movies || !movies.length) 
+  return 0;
+
+  const sum = movies.reduce((acc, movie) => {
+    const rating = parseFloat(movie.imdbRating);
+    return isNaN(rating) ? acc : acc + rating;
+  }, 0);
+  return sum / movies.length;
+}
 
 /**
  * countByRating()
@@ -67,7 +86,17 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+
+function countByRating(movies) {
+  if (!movies.length) 
+  return {};
+
+  return movies.reduce((counts, movie) => {
+    const rating = movie.rated;
+    counts[rating] = (counts[rating] || 0) + 1;
+    return counts;
+  }, {});
+}
 
 /**
  * findById()
@@ -83,7 +112,12 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+
+function findById(movies, id) {
+  if (!movies.length) 
+  return null;
+  return movies.find(movie => movie.imdbID === id) || null;
+}
 
 /**
  * filterByGenre()
@@ -105,7 +139,19 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+
+function filterByGenre(movies, genre) {
+  if (!movies || !movies.length) 
+  return [];
+
+  genre = genre.toLowerCase();
+  return movies.filter(movie => {
+    if (!movie.genres) {
+      return false;
+    }
+    return movie.genres.map(g => g.toLowerCase()).includes(genre);
+  });
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +175,11 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  return movies.filter(movie => new Date(movie.released).getFullYear() <= year);
+}
+
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +192,25 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+
+function getBiggestBoxOfficeMovie(movies) {
+
+  if (!movies || !movies.length) 
+  return null;
+
+  let biggestBoxOffice = movies[0].boxOffice;
+  let biggestBoxOfficeMovie = movies[0].title;
+
+  for (let i = 0; i < movies.length; i++) {
+    if (movies[i].boxOffice > biggestBoxOffice) {
+      biggestBoxOffice = movies[i].boxOffice;
+      biggestBoxOfficeMovie = movies[i].title;
+    }
+  }
+  return biggestBoxOfficeMovie;
+}
+
+
 
 // Do not change anything below this line.
 module.exports = {
