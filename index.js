@@ -202,7 +202,27 @@ for (const mov of movies) {
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  let highestboxOfficeName = null
+  let highestboxOffice = 0
+
+  for (const mov of movies) {
+    let remove1 = mov.boxOffice.replaceAll(",", '')
+    let boxOffice = Number(remove1.replace("$", ""))
+    if(highestboxOffice < boxOffice ){
+      highestboxOffice = boxOffice
+    }
+  }
+  for (const mov2 of movies) {
+    let remove1 = mov2.boxOffice.replaceAll(",", '')
+    let boxOffice = Number(remove1.replace("$", ""))
+if(highestboxOffice === boxOffice){
+  highestboxOfficeName = mov2.title
+}
+
+  }
+  return highestboxOfficeName
+}
 
 // Do not change anything below this line.
 module.exports = {
