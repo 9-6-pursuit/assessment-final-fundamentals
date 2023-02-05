@@ -37,7 +37,7 @@ function getAllMovieTitles(movies) {
   for (const eachMovie of movies) {
     newMovieArray.push(eachMovie.title);
   }
-  //return newMovieArray;
+  return newMovieArray;
 }
 
 /**
@@ -212,7 +212,14 @@ return movieList
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies,year) {
+  releaseYearArray = []
+  if(movies.length ===0 ) {
+    return []
+  }
+
+  return releaseYearArray
+}
 
 /**
  * getBiggestBoxOfficeMovie()
