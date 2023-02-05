@@ -28,7 +28,14 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  let array = []
+  for (const movie of movies) {
+    array.push(movie.title)
+  }
+  return array
+}
+
 
 /**
  * getHighestMetascore()
@@ -41,7 +48,15 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  let highestMetascore = 0;
+  for (const movie of movies) {
+    if(movie.metascore > highestMetascore) {
+      highestMetascore = movie.metascore;
+  }
+}
+  return Number(highestMetascore);
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +69,14 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+ let averageImdbRating = 0
+  for (const movie of movies) {
+        averageImdbRating += Number (movie.imdbRating)
+    
+  }
+  return movies.length > 0 ? averageImdbRating / movies.length : 0;
+}
 
 /**
  * countByRating()
@@ -67,7 +89,19 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  let moviesThatHaveRatings = {}
+  for (const movie of movies) {
+    if (!moviesThatHaveRatings[movie.rated]) {
+    //if (moviesThatHaveRatings !== [movie.rated]) {
+      moviesThatHaveRatings[movie.rated] = 1
+    }
+    else {
+      moviesThatHaveRatings[movie.rated] ++
+    }
+}
+return moviesThatHaveRatings
+}
 
 /**
  * findById()
@@ -83,7 +117,15 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  let movie;
+  for (const movie of movies) {
+    if (movie.imdbID === id) {
+      return movie;
+    }
+  }
+  return null;
+}
 
 /**
  * filterByGenre()
@@ -105,7 +147,16 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  let moviesByGenre = [];
+  for (const movie of movies) {
+    // The includes() method returns true if an array contains a specified value. method is case sensitive.
+    if (movie.genre.toUpperCase().includes(genre.toUpperCase())) {
+      moviesByGenre.push(movie);
+    }
+  }
+  return moviesByGenre;
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +180,30 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let moviesInRange = [];
+  for (const movie of movies) {
+    //split() method splits a string into an array of substrings. (" ") is used as separator, the string is split between words.
+    let releasedYear = movie.released.split(" ")[2];
+    if (releasedYear <= year) {
+      //push() method adds new items to the end of an array. method returns the new length.
+      moviesInRange.push(movie);
+    }
+  }
+  return moviesInRange;
+}
+
+//   let moviesReleasedBeforeYear = [];
+//   if (movies.length === 0) {
+//     return []
+//   }
+//   for (const movie of movies) {
+//     if (movie.givenYear <= moviesReleasedBeforeYear.givenYear) {
+//       moviesReleasedBeforeYear = movie
+//     }
+//   }
+//   return moviesReleasedBeforeYear;
+// }
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +216,24 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+let biggestBoxOfficeMovie = '';
+let biggest = 0
+for (const movie of movies) {
+// slice() method returns selected elements in an array, as a new array. Start position. Default is 0.Negative numbers select from the end of the array.
+// If (" ") is used as separator, the string is split between words.
+//split() method splits a string into an array of substrings.
+//join() method returns an array as a string. Any separator can be specified. The default is comma (,).
+  if (Number(movie.boxOffice.slice(1).split(',').join('')) >
+    biggest) {
+      biggest = Number(movie.boxOffice.slice(1).split(',').join(''));
+      biggestBoxOfficeMovie = movie.title;
+    }
+  }
+// The conditional (ternary) operator is the only JavaScript operator that takes three operands: a condition followed by a question mark ( ? ), then an expression to execute if the condition is truthy followed by a colon ( : ), and finally the expression to execute if the condition is falsy.
+//.length property sets or returns the number of elements in an array.  
+return movies.length > 0 ? biggestBoxOfficeMovie : null;
+}
 
 // Do not change anything below this line.
 module.exports = {
