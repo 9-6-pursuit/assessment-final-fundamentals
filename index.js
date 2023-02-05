@@ -140,17 +140,27 @@ function findById(movies, id) {
  *  //> []
  */
 
-function filterByGenre(movies, genre) {
-  if (!movies || !movies.length) 
-  return [];
+// function filterByGenre(movies, genre) {
+//   if (!movies || !movies.length) 
+//   return [];
 
-  genre = genre.toLowerCase();
-  return movies.filter(movie => {
-    if (!movie.genres) {
-      return false;
+//   genre = genre.toLowerCase();
+//   return movies.filter(movie => {
+//     if (!movie.genres) {
+//       return false;
+//     }
+//     return movie.genres.map(g => g.toLowerCase()).includes(genre);
+//   });
+// }
+
+function filterByGenre(movies, gen) {
+  let result = []
+  for (m of movies){
+    if ((m.genre.toLowerCase()).includes(gen.toLowerCase())){
+      result.push(m)
     }
-    return movie.genres.map(g => g.toLowerCase()).includes(genre);
-  });
+  }
+  return result
 }
 
 /**
@@ -193,23 +203,39 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
  *  //> "Incredibles 2"
  */
 
+// function getBiggestBoxOfficeMovie(movies) {
+
+//   if (!movies || !movies.length) 
+//   return null;
+
+//   let biggestBoxOffice = movies[0].boxOffice;
+//   let biggestBoxOfficeMovie = movies[0].title;
+
+//   for (let i = 0; i < movies.length; i++) {
+//     if (movies[i].boxOffice > biggestBoxOffice) {
+//       biggestBoxOffice = movies[i].boxOffice;
+//       biggestBoxOfficeMovie = movies[i].title;
+//     }
+//   }
+//   return biggestBoxOfficeMovie;
+// }
+
 function getBiggestBoxOfficeMovie(movies) {
-
-  if (!movies || !movies.length) 
-  return null;
-
-  let biggestBoxOffice = movies[0].boxOffice;
-  let biggestBoxOfficeMovie = movies[0].title;
-
-  for (let i = 0; i < movies.length; i++) {
-    if (movies[i].boxOffice > biggestBoxOffice) {
-      biggestBoxOffice = movies[i].boxOffice;
-      biggestBoxOfficeMovie = movies[i].title;
-    }
+  if (movies.length === 0){
+    return null
   }
-  return biggestBoxOfficeMovie;
+  let max =0
+  let title = ''
+    for (movie of movies) {
+      boxOffice = Number((movie.boxOffice.slice(1)).split(",").join(""))
+  
+    if(boxOffice > max){
+      max = boxOffice
+      title = movie.title
+    }    
+      }  
+    return title
 }
-
 
 
 // Do not change anything below this line.
