@@ -28,7 +28,19 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+ //apply logi from getAllCityNames
+
+  let allTitles = [];
+        // emptry array to return all movies
+  for (let i = 0; i < movies.length; i++) {
+        //loops thrpugh movies
+    allTitles.push(movies[i].title)
+        //pushes all movies into allTitles
+  }
+  return allTitles 
+  //returns allTitles
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +53,20 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  //apply logic from oldestCity
+
+  let highScore = null
+        // new arry to gather high scores. will return null if movies is empty.
+  for (let scores of movies) {
+        //loop through all movies 
+    if (scores.metascore > highScore) {
+        // will iterate through metascores and place the newest highest score found into the highScore array
+      highScore = scores.metascore
+    }
+  }
+  return Number(highScore)
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +79,23 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  // apply logic from getAverageFoundingYearForCapitals
+
+
+  let avg = 0
+        // new array to return average of IMDB ratings
+  for (let movie of movies) {
+    avg += Number(movie.imdbRating)
+        // iterates through movies and coverts the imdb rating into a number, pushing into avg array and adding
+  }
+  if (movies.length) {
+    avg = avg/(movies.length)
+        // divides the total of the avg array by the total number of movies.
+  }
+  return avg
+        // returns the the total of the avg array divided by the total number of movies.
+}
 
 /**
  * countByRating()
@@ -67,7 +108,25 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+// apply logic from countByCountry
+
+  let ratings = {}
+        // creates an emptry object to return ratings 
+  for (i=0; i<movies.length; i++) {
+    let mRated = movies[i].rated
+        // loops through array of movies and assign new key to movies[i].rated
+      if (ratings[mRated]) {
+        ratings[mRated] += 1
+        // adds the key and increase value
+      } else {
+        ratings[mRated] = 1
+        // no rate, value equals 1
+      }
+  }
+  return ratings
+
+}
 
 /**
  * findById()
@@ -83,7 +142,17 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, imdbID) {
+  //apply logic from findByName
+
+  for (let movie of movies) {
+    if (movie.imdbID === imdbID)
+          // lopps through movie array and will return a movie title if the value matches
+    return movie
+  }
+  return null
+          // if the array is empty or the ids don't match, returns null
+}
 
 /**
  * filterByGenre()
@@ -105,7 +174,20 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+//apply logic from filterByCountry
+
+  let zhonrah = []
+            // new array to store genres
+  for (let genres of movies) {
+    if (genres.genre.toLowerCase().includes(genre.toLowerCase())) {
+      zhonrah.push(genres)  
+            // will match movie genres, covert to lower case and push into the array
+    }
+  }
+  return zhonrah
+            // returns array of matched genres
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +211,25 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  // apply logic from getAllCittiesFoundedBeforeYear
+  // should return all movies where the `released` date is equal to or less than the year given
+
+
+  let allMoviesReleased = []
+  for (let movie of movies) {
+    let yearReleased = movie.released.split(" ") 
+         // for future reference....
+          //this is a little different from the getAllCittiesFoundedBeforeYear. Need to use the split() method because release contains date, month, year and the test only expects the year.
+    if (yearReleased[2] <= year) { 
+          //the new split released substring will check at the 2 index for the year, skipping 0 (day) and 1 (month)
+      allMoviesReleased.push(movie)
+    }
+  }
+  return allMoviesReleased
+}
+
+
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +242,35 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+         // assuming since findBySportsTeam is the only example left, I should appply that logic here. I will see. Take 15 minutes and grab some food.
+         // no. this is not the same at all. dios mio.
+if (movies.length === 0)
+{ 
+  return null
+}         /// woohoo. free test passed. 45 minutes left. next time no break until done.
+  
+  let highest = ""
+          // a string variable to set the highest movie to.
+  let highGross = 0
+          // a number to set the highest grossing box office value to.
+  
+  for (let movie of movies) {
+    let boxOfficeNumber = Number(movie['boxOffice'].replace(/[$,]/g, ""))
+          // loops through the array and converts the box office number to the expected string.
+    if (boxOfficeNumber > highGross) {
+      highGross = boxOfficeNumber
+      highest = movie['title']
+          // iterates through box office totals and repleaces the current highest value with the newest high value, then assigned that movies 'title' to the created variable (highest).
+    }
+  }
+
+  return highest
+          // returns the highest box office grossing movie. 
+
+
+}
+
 
 // Do not change anything below this line.
 module.exports = {
