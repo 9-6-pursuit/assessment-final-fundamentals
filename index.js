@@ -28,7 +28,17 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  if(movies.length === 0){
+    return [];
+  } 
+  const newMovieArray = [];
+  
+  for (const eachMovie of movies) {
+    newMovieArray.push(eachMovie.title);
+  }
+  return newMovieArray;
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +51,20 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  if(movies.length === 0){
+    return 0;
+  } 
+
+  let highestMetaScore = '0';
+  for (const eachMovie of movies) { 
+    let metascore = eachMovie.metascore
+    if(highestMetaScore < metascore) {
+      highestMetaScore = Number(metascore);
+    }
+  }
+  return highestMetaScore;
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +77,24 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+// ****  N O T   Y E T   W O R K I N G  ****
+function getAverageIMDBRating(movies) {
+  if(movies.length === 0){
+    return 0;
+  } 
+  let imdbRateAvg = 0;
+  let allMovieRatings = []
+  for (const eachMovie of movies) {
+    allMovieRatings.push(Number(eachMovie.imdbRating))
+  }
+  for (const eachScore of allMovieRatings) {
+    imdbRateAvg += eachScore;
+  }
+  imdbRateAvg = imdbRateAvg / allMovieRatings.length;
+  imdbRateAvg = Math.round(imdbRateAvg,0);
+
+  return imdbRateAvg;
+}
 
 /**
  * countByRating()
@@ -67,7 +107,19 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  if(movies.length === 0) {return {}}
+  const ratingResult = {};
+  //let rating = []
+  for (const eachMovie of movies) {
+    if(ratingResult[eachMovie.rated]) {
+      ratingResult[eachMovie.rated] += 1;
+    } else {
+      ratingResult[eachMovie.rated] = 1;
+    }   
+  }
+  return ratingResult;
+}
 
 /**
  * findById()
@@ -83,7 +135,24 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+
+    // ****  N O T   Y E T   W O R K I N G  ****
+function findById(movies,id) {
+  if(movies.length === 0){
+    return null;
+  }
+  let result = {}
+  for (let i = 0; i < movies.length; i++) {
+    const eachMovie = movies[i] 
+    if(eachMovie.imdbID === id) {
+      result = eachMovie;
+      return result
+    }
+  }
+  if(!result.length) {
+    return null
+  }
+}
 
 /**
  * filterByGenre()
@@ -105,7 +174,21 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies,genre) {
+  if(movies.length === 0){
+    return [];
+  }
+  const movieList = []
+  for (const movie of movies) {
+    if(movie.genre.includes(genre)){
+      movieList.push(movie)
+    }
+  }
+  if(!movieList.length){
+    return [];
+  }
+return movieList
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +212,14 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies,year) {
+  releaseYearArray = []
+  if(movies.length ===0 ) {
+    return []
+  }
+
+  return releaseYearArray
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +232,31 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  if(movies.length ===0 ) {
+    return null;
+  }
+  let biggestBoxOfficeName = "";
+  let boxOffice = 0;
+  let boxOffice2 = 0;
+  for (const movie of movies) {
+    boxOffice2 = movie.boxOffice
+    boxOffice2 = boxOffice2.split(",")
+    boxOffice2 = boxOffice2.join('')
+    boxOffice2 = boxOffice2.slice(1);
+    console.log('boxOffice2==>', boxOffice2)
+    if (boxOffice < boxOffice2) {
+      biggestBoxOfficeName = movie.title
+    }
+  }
+  console.log('biggestBoxOfficeName ===> ', biggestBoxOfficeName)
+  return biggestBoxOfficeName;
+}
+
+
+
+
+
 
 // Do not change anything below this line.
 module.exports = {
