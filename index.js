@@ -90,7 +90,18 @@ let avg = nums.reduce((a,b) => a + b, 0)/nums.length
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  let obj = {}
+for (const mov of movies) {
+  if(obj[mov.rated]){
+    obj[mov.rated]++
+  } else {
+    obj[mov.rated] = 1
+  }
+}
+
+  return obj
+}
 
 /**
  * findById()
