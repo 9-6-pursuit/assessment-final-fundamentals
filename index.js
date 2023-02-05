@@ -180,7 +180,16 @@ for (const mov of movies) {
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let arr = []
+for (const mov of movies) {
+  let yearReleased = Number(mov.released.split(' ')[2])
+  if(yearReleased <= year){
+    arr.push(mov)
+  }
+}
+  return arr
+}
 
 /**
  * getBiggestBoxOfficeMovie()
