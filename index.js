@@ -160,7 +160,7 @@ function filterByGenre(movies, genre) {
 
   for (const movie of movies) {
     if (movie.genre.toLowerCase().includes(genre.toLowerCase())) {
-      genreFilter.push(movie)
+      genreFilter.push(movie);
     }
   }
   return genreFilter
@@ -188,7 +188,16 @@ function filterByGenre(movies, genre) {
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let releaseDate = [];
+
+  for (const movie of movies) {
+    if (1 * movie.released.split(" ")[2] <= year) {
+      releaseDate.push(movie);
+    } 
+  }
+  return releaseDate
+};
 
 /**
  * getBiggestBoxOfficeMovie()
