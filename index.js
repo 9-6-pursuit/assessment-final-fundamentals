@@ -28,7 +28,15 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  let movieTitleList = []
+  for (let index = 0; index < movies.length; index++) {
+    const movie = movies[index];
+    let movieTitle = movie.title
+    movieTitleList.push(movieTitle)
+  }
+return movieTitleList;
+}
 
 /**
  * getHighestMetascore()
@@ -41,7 +49,21 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  let highestScore = 0;
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+
+    if (movies.length === 0) {
+      return highestScore;
+    }
+    if (Number(movie.metascore) > Number(highestScore)){
+       highestScore = movie.metascore;
+    }
+  }
+  return Number(highestScore);
+}
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +76,18 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let imdbAverage = 0;
+
+  if (movies.length === 0) {
+    return imdbAverage;
+  }
+  for (let m = 0; m  < movies.length; m ++) {
+    const movie = movies[m];
+    imdbAverage += Number(movie.imdbRating)
+  }
+  return imdbAverage/movies.length;
+}
 
 /**
  * countByRating()
@@ -67,7 +100,27 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  let ratingObj = {};
+  let count = 0;
+
+  if (movies.length === 0) {
+    return ratingObj;
+  }
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let rating = movie.rated;
+
+    ratingObj[rating] = ''
+
+    if(ratingObj.hasOwnProperty(rating)){
+      ++count;
+      ratingObj[rating] = count;
+    }
+  }
+  return ratingObj;
+}
 
 /**
  * findById()
@@ -83,7 +136,18 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length === 0){
+    return null;
+  }
+  for (let i = 0; i < movies.length; i++) {
+    const movie = movies[i];
+    if(movie.imdbID === id) {
+      return movie;
+    }
+  }
+  return null;
+}
 
 /**
  * filterByGenre()
@@ -105,7 +169,20 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  let movieArr = [];
+
+  if (movies.length === 0){
+    return movieArr;
+  }
+for (let m = 0; m < movies.length; m++) {
+  const movie = movies[m];
+  if (movie.genre.toLowerCase().includes(genre.toLowerCase())){
+    movieArr.push(movie)
+  }
+}
+return movieArr;
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +206,29 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  let movieArr = [];
+  let reg = /\d+/g;
+
+  if (movies.length === 0){
+    return movieArr;
+  }
+
+  for (let m = 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let num = movie.released.match(reg)
+
+    for (let r = 0; r < num.length; r++) {
+      const releasedYear = num[r];
+      if (releasedYear.length === 4) {
+        if (releasedYear <= year) {
+          movieArr.push(movie);
+        }
+      }
+    }
+  }
+  return movieArr;
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +241,24 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  let string = ''
+  let highestBoxOffice = 0
+
+  if (movies.length === 0){
+    return null;
+  }
+
+  for (let m= 0; m < movies.length; m++) {
+    const movie = movies[m];
+    let bigHit = Number(movie.boxOffice.slice(1).split(",").join(""))
+    if(bigHit > highestBoxOffice) {
+      highestBoxOffice = bigHit
+      string = movie.title;
+    }
+  }
+  return string;
+}
 
 // Do not change anything below this line.
 module.exports = {
