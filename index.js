@@ -55,11 +55,7 @@ for (const mov of movies) {
     high = Number(mov.metascore)
   }
 }
-
-
-
 return high
-
 }
 
 /**
@@ -73,7 +69,15 @@ return high
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let nums = []
+for (const mov of movies) {
+  nums.push(Number(mov.imdbRating))
+  
+}
+let avg = nums.reduce((a,b) => a + b, 0)/nums.length
+  return nums.length > 0 ? avg : 0
+}
 
 /**
  * countByRating()
