@@ -117,7 +117,16 @@ for (const mov of movies) {
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  let obj = null
+  for (const mov of movies) {
+    if(mov.imdbID === id){
+      obj = mov
+    }
+  }
+
+  return obj
+}
 
 /**
  * filterByGenre()
