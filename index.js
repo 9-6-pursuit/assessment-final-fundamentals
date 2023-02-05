@@ -140,12 +140,15 @@ function findById(movies,id) {
   return null;
   }
   let result = {}
-  for (const eachMovie of movies) {
+  for (let i = 0; i < movies.length; i++) {
+    const eachMovie = movies[i] 
     if(eachMovie.imdbID === id) {
       result = eachMovie;
+      console.log('eachMovie===> ', eachMovie)
+      
     }
   }
-  if(result.lenght > 0) {
+  if(result.length) {
     return result
   } else {
     return null
@@ -172,7 +175,9 @@ function findById(movies,id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre() {
+  
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
