@@ -77,6 +77,7 @@ function getHighestMetascore(movies) {
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
+// ****  N O T   Y E T   W O R K I N G  ****
 function getAverageIMDBRating(movies) {
   if(movies.length === 0){
     return 0;
@@ -104,7 +105,19 @@ function getAverageIMDBRating(movies) {
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  if(movies.length === 0) {return {}}
+  const ratingResult = {};
+  //let rating = []
+  for (const eachMovie of movies) {
+    if(ratingResult[eachMovie.rated]) {
+      ratingResult[eachMovie.rated] += 1;
+    } else {
+      ratingResult[eachMovie.rated] = 1;
+    }   
+  }
+  return ratingResult;
+}
 
 /**
  * findById()
