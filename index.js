@@ -224,9 +224,10 @@ function getBiggestBoxOfficeMovie(movies)
   let biggest = 0;
   for (const movie of movies)
   {
-    if(Number(movie.boxOffice.slice(1).split(',').join('')) > biggest)
+    let movieBoxOffice = Number(movie.boxOffice.slice(1).split(',').join(''));
+    if(movieBoxOffice > biggest)
     {
-      biggest = Number(movie.boxOffice.slice(1).split(',').join(''));
+      biggest = movieBoxOffice;
       biggestBoxOfficeMovie = movie.title;
     }
   }
