@@ -55,16 +55,16 @@ movieTitles.push(movie.title)
  *  //> 96
  */
 function getHighestMetascore(movies) {
-let highestMetaScore = {metascore:100}
+let highestMetaScore = 0
 if (movies.length === 0) {
   return Number ('0')
 }
   for (const movie of movies) {
-    if(movie.metascore < highestMetaScore.metascore) {
-      highestMetaScore = movie
+    if(movie.metascore > highestMetaScore) {
+      highestMetaScore = movie.metascore
     }
   }
-  return Number(highestMetaScore.metascore)
+  return Number(highestMetaScore)
 }
 
 
@@ -89,9 +89,9 @@ function getAverageIMDBRating(movies){
   }
   let sum = 0
   for (const rating of ratings){
-    sum += rating 
+    sum += Number(rating)
   }
-  return Math.round(sum / ratings.length)
+  return sum / ratings.length
 }
 
 /**
@@ -165,7 +165,7 @@ for (const movie of movies){
 function filterByGenre(movies, genre) {
 let filteredMovies = [ ]
 for (const movie of movies) {
-  if (movies.genre === genre){
+  if (movie.genre.toUpperCase().includes(genre.toUpperCase())){
     filteredMovies.push(movie)
     }
   }
@@ -195,12 +195,15 @@ for (const movie of movies) {
     ];
  */
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
-
-
-
-
-
+let newArray = []
+for (const movie of movies){
+  if(Number(movie.released.slice(7,11)) <= year){
+    newArray.push(movie)
+  }
 }
+return newArray
+}
+
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -214,10 +217,18 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
  *  //> "Incredibles 2"
  */
 function getBiggestBoxOfficeMovie(movies) {
-
-
-
-
+let title = null
+let amount = 0
+for (const movie of movies){
+let dollarSignNoMore = movie.boxOffice.replaceAll("$", "" )
+let comasNoMore = dollarSignNoMore.replaceAll(",", "")
+let boxOfficeAmount = Number (comasNoMore)
+if(boxOfficeAmount > amount){
+  title = movie.title
+  amount = boxOfficeAmount
+    }
+  }
+return title
 }
 
 // Do not change anything below this line.
