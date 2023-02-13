@@ -21,14 +21,22 @@ const exampleMovies = require("./movies");
       "Coco",
       "Incredibles 2",
       "Moana",
-      "How to Train Your Dragon",
+      "How to Train Your Dragon",npm test
       "Paddington",
       "The Lion King",
       "Fantasia",
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  let allMovies = [];
+  for (const movie of movies) {
+    allMovies.push(movie.title) 
+    }
+    return allMovies
+  }
+  
+
 
 /**
  * getHighestMetascore()
@@ -41,7 +49,16 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  let highMeta = 0;
+  for (const movie of movies) {
+    if (+(movie.metascore > highMeta)) {
+      highMeta = +(movie.metascore)
+    }    
+  }
+  return highMeta
+  }
+
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +71,44 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let movieAvg = 0;
+  for (const movie of movies) {
+    movieAvg += (+(movie.imdbRating / movies.length))
+     }
+  return movieAvg
+}
+
+
+
+
+
+// function getAverageIMDBRating(movies) {}
+//   const imdbs = movies.map(movie => movie.imdbRating).filter(rating => rating > 0);
+
+//   if (imdbs.length === 0) {
+//     return 0;
+//   }
+
+//   const averageRating = imdbs.reduce((sum, rating) => sum + rating) / imdbs.length;
+//   return +averageRating.toFixed(2);
+// }
+// // let imdbs = [];
+// //   for (const movie of movies) {
+// //     if (movie.imdbRating) {
+// //       imdbs.push(movie.imdbRating)
+// //     }
+// // // Number.filter(imdbs > 0)
+// //   } if (imdbs.length === 0) {
+// //     return 0;
+// //   } averageRating = 0;
+// //     for (const imdb of imdbs) {
+// //    averageRating += imdb
+// //   }
+// //   return +(averageRating) / imdbs.length
+// // }
+
+
 
 /**
  * countByRating()
@@ -67,8 +121,20 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
 
+
+function countByRating(movies) {
+  count = {};
+  for (let i = 0; i < movies.length; i++) {
+    if (count[movies[i].rated]) {
+      count[movies[i].rated] += 1
+    }
+    else {
+      count[movies[i].rated] = 1
+    }
+  }
+    return count
+  }
 /**
  * findById()
  * -----------------------------
@@ -83,7 +149,17 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+
+
+
+function findById(movies, id) {
+  for (const movie of movies) {
+    if (movie.imdbID === id) {
+      return movie
+    }
+  }
+  return null
+}
 
 /**
  * filterByGenre()
@@ -105,7 +181,18 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+
+
+function filterByGenre(movies, genre) {
+  let filtered = []
+  for (const movie of movies){
+    if(movie.genre.toUpperCase().includes(genre.toUpperCase())) {
+      filtered.push(movie)
+    }
+  }
+  return filtered
+}
+
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -129,7 +216,17 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+
+
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+let moviesAtOr =[];
+for (const movie of movies) {
+    if (Number(movie.released.slice(7, 11)) <= year) {
+      moviesAtOr.push(movie)
+    }
+}
+return moviesAtOr
+}
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -142,7 +239,23 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+
+
+
+function getBiggestBoxOfficeMovie(movies) {
+  let bigBoxOffice = 0;
+  let bigBoxMov = null
+  if (movies.length === 0) {
+    return null
+  }
+  for (const movie of movies) {
+    if (parseInt((movie.boxOffice).replace(/,/g, '').slice(1)) > bigBoxOffice) {
+      bigBoxOffice = (parseInt((movie.boxOffice).replace(/,/g, '').slice(1)));
+      bigBoxMov = movie.title
+    }
+  }
+  return bigBoxMov
+}
 
 // Do not change anything below this line.
 module.exports = {
