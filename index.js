@@ -52,12 +52,13 @@ function getAllMovieTitles(movies) {
 function getHighestMetascore(movies) {
   let highMeta = 0;
   for (const movie of movies) {
-    if (movie.metascore > highMeta) {
-      highMeta = movie.metascore
-    }
+    if (+(movie.metascore > highMeta)) {
+      highMeta = +(movie.metascore)
+    }    
   }
-  return +(highMeta)
-}
+  return highMeta
+  }
+
 
 /**
  * getAverageIMDBRating()
@@ -71,20 +72,43 @@ function getHighestMetascore(movies) {
  *  //> 7.76
  */
 function getAverageIMDBRating(movies) {
-let imdbs = [];
+  let movieAvg = 0;
   for (const movie of movies) {
-    if (movie.imdbRating) {
-      imdbs.push(movie.imdbRating)
-    }
-
-  } if (imdbs.length === 0) {
-    return 0;
-  } let averageImdb = 0;
-  for (const imdb of imdbs) {
-  //   averageImdb + imbd
-  }
-  console.log(imdbs)
+    movieAvg += (+(movie.imdbRating / movies.length))
+     }
+  return movieAvg
 }
+
+
+
+
+
+// function getAverageIMDBRating(movies) {}
+//   const imdbs = movies.map(movie => movie.imdbRating).filter(rating => rating > 0);
+
+//   if (imdbs.length === 0) {
+//     return 0;
+//   }
+
+//   const averageRating = imdbs.reduce((sum, rating) => sum + rating) / imdbs.length;
+//   return +averageRating.toFixed(2);
+// }
+// // let imdbs = [];
+// //   for (const movie of movies) {
+// //     if (movie.imdbRating) {
+// //       imdbs.push(movie.imdbRating)
+// //     }
+// // // Number.filter(imdbs > 0)
+// //   } if (imdbs.length === 0) {
+// //     return 0;
+// //   } averageRating = 0;
+// //     for (const imdb of imdbs) {
+// //    averageRating += imdb
+// //   }
+// //   return +(averageRating) / imdbs.length
+// // }
+
+
 
 /**
  * countByRating()
@@ -97,19 +121,20 @@ let imdbs = [];
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
+
+
 function countByRating(movies) {
   count = {};
-  for (const movie of movies) {
-    if ( count[movie.rated]) {
-      count[movie.rated] += 1
+  for (let i = 0; i < movies.length; i++) {
+    if (count[movies[i].rated]) {
+      count[movies[i].rated] += 1
     }
     else {
-      count[movie.rated] = 1
+      count[movies[i].rated] = 1
     }
   }
-  return count
-}
-
+    return count
+  }
 /**
  * findById()
  * -----------------------------
@@ -124,6 +149,9 @@ function countByRating(movies) {
       // Toy Story 4
     };
  */
+
+
+
 function findById(movies, id) {
   for (const movie of movies) {
     if (movie.imdbID === id) {
@@ -153,10 +181,12 @@ function findById(movies, id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
+
+
 function filterByGenre(movies, genre) {
   let filtered = []
   for (const movie of movies){
-    if(movie.genre.toUpperCase() === genre.toUpperCase()){
+    if(movie.genre.toUpperCase().includes(genre.toUpperCase())) {
       filtered.push(movie)
     }
   }
@@ -186,14 +216,16 @@ function filterByGenre(movies, genre) {
       }
     ];
  */
+
+
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
 let moviesAtOr =[];
 for (const movie of movies) {
-    if (movie.released <= year) {
+    if (Number(movie.released.slice(7, 11)) <= year) {
       moviesAtOr.push(movie)
     }
 }
-return (moviesAtOr)
+return moviesAtOr
 }
 
 /**
@@ -207,17 +239,22 @@ return (moviesAtOr)
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
+
+
+
 function getBiggestBoxOfficeMovie(movies) {
-  let bigBoxOffice = [];
+  let bigBoxOffice = 0;
+  let bigBoxMov = null
   if (movies.length === 0) {
     return null
   }
   for (const movie of movies) {
-    if (movie.boxOffice > bigBoxOffice.boxOffice) {
-      bigBoxOffice = movie
+    if (parseInt((movie.boxOffice).replace(/,/g, '').slice(1)) > bigBoxOffice) {
+      bigBoxOffice = (parseInt((movie.boxOffice).replace(/,/g, '').slice(1)));
+      bigBoxMov = movie.title
     }
   }
-  return bigBoxOffice.title
+  return bigBoxMov
 }
 
 // Do not change anything below this line.
