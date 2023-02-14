@@ -29,7 +29,11 @@ const exampleMovies = require("./movies");
     ];
  */
 function getAllMovieTitles(movies) {
- s
+ let allMovies = [];
+ for (const movie of movies) {
+  allMovies.push(movie.title)
+ }
+ return allMovies
 }
 
 /**
@@ -44,10 +48,16 @@ function getAllMovieTitles(movies) {
  *  //> 96
  */
 function getHighestMetascore(movies) {
+let newMovies = 0;
 for (const movie of movies) {
-  
+  if (movie.metascore > newMovies) {
+    newMovies = movie.metascore
+  }
 }
-}
+  return + (newMovies)
+}  
+
+
 
 /**
  * getAverageIMDBRating()
@@ -61,6 +71,12 @@ for (const movie of movies) {
  *  //> 7.76
  */
 function getAverageIMDBRating(movies) {
+let newMovies = 0;
+  
+  for (let i = 0; i < movies.length; i++){
+    newMovies += movies[i].imdbRating/movies.length
+  } 
+  return newMovies
 
 }
 
@@ -76,7 +92,16 @@ function getAverageIMDBRating(movies) {
  *  //> { G: 3, PG: 7 }
  */
 function countByRating(movies) {
-
+let newMovies = {};
+  for (let i = 0; i < movies.length; i++) {
+   if (newMovies[movies[i].rated]) {
+    newMovies[movies[i].rated] += 1
+// newMovies[movies[i].rated] = newMovies[movies[i].rated] + 1
+    } else { 
+      newMovies[movies[i].rated] = 1
+    }
+    
+  } return newMovies
 }
 
 /**
@@ -94,10 +119,13 @@ function countByRating(movies) {
     };
  */
 function findById(movies, id) {
-let newID = id
-  if (movies.imdbId) {
-  return newID
-}
+
+for (let i = 0; i < movies.length; i++) {
+  if(movies[i].imdbID === id) {
+    return movies[i]
+  }
+  
+}return null
 }
 
 /**
@@ -121,7 +149,14 @@ let newID = id
  *  //> []
  */
 function filterByGenre(movies, genre) {
-
+let newMovies = [];
+  for (let i = 0; i < movies.length; i++) {
+    if(movies[i].genre.toUpperCase().includes(genre.toUpperCase())) {
+        newMovies.push(movies[i])
+      
+    }
+    
+  } return newMovies
 }
 
 /**
@@ -146,10 +181,22 @@ function filterByGenre(movies, genre) {
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear(movies, years) {
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+let newMovies = [];
 
+for (const movie of movies) {
+  if (Number(movie.released.slice(7, 11) <= year)){
+    newMovies.push(movie)
+  }
+} return newMovies
+/*for (let i = 0; i < movies.length; i++) {
+  
+  if (Number(movies[i].released.slice(7, 11)) <= year) {
+    newMovies.push(movies)
+} 
+ console.log(movies[i])
+}*/
 }
-
 /**
  * getBiggestBoxOfficeMovie()
  * -----------------------------
